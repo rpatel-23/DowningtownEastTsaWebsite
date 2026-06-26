@@ -22,16 +22,17 @@ export const site = {
     schoology: "https://app.schoology.com/",
   },
 
-  // Primary navigation. Order = display order.
+  // Primary navigation. Order = display order. `primary` items show in the
+  // desktop top bar; everything appears in the mobile menu and the footer.
   nav: [
-    { label: "Home", href: "/" },
-    { label: "Competitive Events", href: "/events" },
-    { label: "Event Support", href: "/support" },
-    { label: "Officer Team", href: "/officers" },
-    { label: "News", href: "/news" },
-    { label: "Achievements", href: "/achievements" },
-    { label: "FAQ", href: "/faq" },
-    { label: "Contact", href: "/contact" },
+    { label: "Home", href: "/", primary: true },
+    { label: "Competitive Events", href: "/events", primary: true },
+    { label: "Event Support", href: "/support", primary: true },
+    { label: "Officer Team", href: "/officers", primary: true },
+    { label: "News", href: "/news", primary: false },
+    { label: "Achievements", href: "/achievements", primary: false },
+    { label: "FAQ", href: "/faq", primary: false },
+    { label: "Contact", href: "/contact", primary: true },
   ],
 } as const;
 

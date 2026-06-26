@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
@@ -8,6 +8,13 @@ import { site } from "@/data/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+// Display typeface for headings. Geometric and a little techy, which fits a
+// technology club.
+const display = Space_Grotesk({
+  variable: "--font-display",
   subsets: ["latin"],
 });
 
@@ -39,7 +46,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} flex min-h-screen flex-col`}>
+      <body
+        className={`${geistSans.variable} ${display.variable} flex min-h-screen flex-col`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

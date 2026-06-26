@@ -32,9 +32,19 @@ export function Section({
   id?: string;
 }) {
   return (
-    <section id={id} className={cn("py-12 sm:py-16 lg:py-20", className)}>
+    <section id={id} className={cn("py-16 sm:py-20 lg:py-24", className)}>
       {children}
     </section>
+  );
+}
+
+/** Small uppercase eyebrow label. */
+export function Eyebrow({ children }: { children: ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-accent">
+      <span className="h-px w-6 bg-accent/60" aria-hidden />
+      {children}
+    </span>
   );
 }
 
@@ -53,14 +63,14 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        "mb-10 max-w-2xl",
+        "mb-12 max-w-2xl",
         align === "center" && "mx-auto text-center",
       )}
     >
       {eyebrow && (
-        <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-accent">
-          {eyebrow}
-        </p>
+        <div className={cn("mb-3", align === "center" && "flex justify-center")}>
+          <Eyebrow>{eyebrow}</Eyebrow>
+        </div>
       )}
       <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>
       {subtitle && (
@@ -74,13 +84,21 @@ export function SectionHeading({
 export function PageHeader({
   title,
   subtitle,
+  eyebrow,
 }: {
   title: string;
   subtitle?: string;
+  eyebrow?: string;
 }) {
   return (
-    <div className="border-b bg-muted/60">
-      <Container className="py-12 sm:py-16">
+    <div className="relative isolate overflow-hidden border-b bg-muted/40">
+      <div className="grid-backdrop absolute inset-0 -z-10 opacity-60" aria-hidden />
+      <Container className="py-16 sm:py-20">
+        {eyebrow && (
+          <div className="mb-4">
+            <Eyebrow>{eyebrow}</Eyebrow>
+          </div>
+        )}
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">{title}</h1>
         {subtitle && (
           <p className="mt-4 max-w-2xl text-lg text-muted-foreground">{subtitle}</p>
@@ -104,7 +122,7 @@ export function Card({
     <div
       id={id}
       className={cn(
-        "rounded-[var(--radius-base)] border bg-card text-card-foreground shadow-sm scroll-mt-24",
+        "rounded-[var(--radius-base)] border bg-card text-card-foreground shadow-soft scroll-mt-24",
         className,
       )}
     >
@@ -117,19 +135,21 @@ type ButtonVariant = "primary" | "accent" | "outline" | "ghost";
 type ButtonSize = "sm" | "md" | "lg";
 
 const buttonBase =
-  "inline-flex items-center justify-center gap-2 rounded-[var(--radius-base)] font-semibold transition-colors focus-visible:outline-2 disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 focus-visible:outline-2 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50";
 
 const buttonVariants: Record<ButtonVariant, string> = {
-  primary: "bg-primary text-primary-foreground hover:opacity-90",
-  accent: "bg-accent text-accent-foreground hover:opacity-90",
-  outline: "border border-border bg-transparent hover:bg-muted",
+  primary:
+    "bg-primary text-primary-foreground shadow-soft hover:shadow-soft-lg hover:-translate-y-0.5",
+  accent:
+    "bg-accent text-accent-foreground shadow-soft hover:shadow-soft-lg hover:-translate-y-0.5",
+  outline: "border border-border bg-background hover:bg-muted hover:border-foreground/20",
   ghost: "bg-transparent hover:bg-muted",
 };
 
 const buttonSizes: Record<ButtonSize, string> = {
-  sm: "h-9 px-3 text-sm",
-  md: "h-11 px-5 text-sm",
-  lg: "h-12 px-7 text-base",
+  sm: "h-9 px-4 text-sm",
+  md: "h-11 px-6 text-sm",
+  lg: "h-13 px-8 text-base",
 };
 
 export function buttonClass(

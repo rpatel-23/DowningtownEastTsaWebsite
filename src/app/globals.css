@@ -9,18 +9,18 @@
 --------------------------------------------------------------------------- */
 :root {
   --background: #ffffff;
-  --foreground: #0d1530;
-  --muted: #f4f6fb;
-  --muted-foreground: #586079;
+  --foreground: #0b1220;
+  --muted: #f2f5fb;
+  --muted-foreground: #5a6478;
   --card: #ffffff;
-  --card-foreground: #0d1530;
-  --border: #e3e7f0;
-  --input: #e3e7f0;
+  --card-foreground: #0b1220;
+  --border: #e6eaf2;
+  --input: #e6eaf2;
 
   /* Brand */
-  --navy: #102a56;
+  --navy: #15336b;
   --navy-foreground: #ffffff;
-  --red: #d81e3f;
+  --red: #e11d48;
   --red-foreground: #ffffff;
 
   --primary: var(--navy);
@@ -29,30 +29,34 @@
   --accent-foreground: #ffffff;
 
   --ring: #2a4a8a;
-  --radius: 0.75rem;
+  --radius: 0.9rem;
+
+  --shadow-color: 220deg 40% 20%;
 }
 
 .dark {
-  --background: #0a1024;
-  --foreground: #e8ecf6;
-  --muted: #121a36;
-  --muted-foreground: #9aa3c0;
-  --card: #0f1730;
-  --card-foreground: #e8ecf6;
-  --border: #233056;
-  --input: #233056;
+  --background: #070b16;
+  --foreground: #e9edf6;
+  --muted: #101728;
+  --muted-foreground: #98a2b8;
+  --card: #0d1322;
+  --card-foreground: #e9edf6;
+  --border: #1e283f;
+  --input: #1e283f;
 
-  --navy: #5b86d6;
-  --navy-foreground: #08112a;
-  --red: #ff5470;
+  --navy: #6f9bff;
+  --navy-foreground: #060a14;
+  --red: #ff5a76;
   --red-foreground: #1a0008;
 
-  --primary: #6e9bff;
-  --primary-foreground: #08112a;
-  --accent: #ff5470;
+  --primary: #6f9bff;
+  --primary-foreground: #060a14;
+  --accent: #ff5a76;
   --accent-foreground: #1a0008;
 
-  --ring: #6e9bff;
+  --ring: #6f9bff;
+
+  --shadow-color: 220deg 60% 2%;
 }
 
 /* Expose tokens to Tailwind utilities (bg-background, text-foreground, etc.) */
@@ -77,6 +81,7 @@
   --radius-base: var(--radius);
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-geist-sans), system-ui, sans-serif;
 }
 
 * {
@@ -92,12 +97,70 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings use the display typeface with tighter tracking for a polished feel. */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
 }
 
 /* Visible focus for keyboard users (accessibility). */
 :focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+   Aesthetic utilities
+--------------------------------------------------------------------------- */
+
+/* Deep brand-navy hero background. Theme-stable so white text always reads. */
+.hero-bg {
+  background-color: #0a1430;
+  background-image:
+    radial-gradient(60% 80% at 85% 5%, rgba(225, 29, 72, 0.30), transparent 60%),
+    radial-gradient(55% 65% at 5% 100%, rgba(73, 110, 200, 0.45), transparent 60%),
+    linear-gradient(165deg, #112a5e 0%, #0a1430 65%);
+}
+
+.hero-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+/* Soft, layered shadow for cards on hover. */
+.shadow-soft {
+  box-shadow:
+    0 1px 2px hsl(var(--shadow-color) / 0.06),
+    0 8px 24px -12px hsl(var(--shadow-color) / 0.18);
+}
+
+.shadow-soft-lg {
+  box-shadow:
+    0 1px 2px hsl(var(--shadow-color) / 0.08),
+    0 24px 48px -20px hsl(var(--shadow-color) / 0.28);
+}
+
+/* Accent gradient text for highlight words. */
+.text-gradient {
+  background-image: linear-gradient(120deg, var(--accent), #ff8aa0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Hairline grid backdrop for light section texture. */
+.grid-backdrop {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent 75%);
 }
 
 /* Respect reduced-motion preferences. */

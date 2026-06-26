@@ -18,8 +18,8 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/70">
       <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2 font-bold">
-          <span className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-base)] bg-primary text-primary-foreground">
+        <Link href="/" className="group flex items-center gap-2.5 font-bold">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm text-primary-foreground shadow-soft transition-transform group-hover:scale-105">
             TSA
           </span>
           <span className="hidden text-sm leading-tight sm:block">
@@ -30,25 +30,29 @@ export function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop nav */}
+        {/* Desktop nav (primary items only, to keep it easy to scan) */}
         <div className="hidden items-center gap-1 lg:flex">
-          {site.nav.map((item) => (
+          {site.nav.filter((item) => item.primary).map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted",
+                "rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
                 isActive(item.href)
-                  ? "text-accent"
-                  : "text-foreground/80 hover:text-foreground",
+                  ? "bg-primary/10 text-primary"
+                  : "text-foreground/70 hover:bg-muted hover:text-foreground",
               )}
             >
               {item.label}
             </Link>
           ))}
-          <div className="ml-2">
-            <ThemeToggle />
-          </div>
+          <Link
+            href="/quiz"
+            className="ml-2 inline-flex h-10 items-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-soft-lg"
+          >
+            Find My Event
+          </Link>
+          <ThemeToggle />
         </div>
 
         {/* Mobile controls */}
